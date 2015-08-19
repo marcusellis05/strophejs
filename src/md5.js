@@ -7,6 +7,8 @@
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
 
+/* global define, module, exports */
+
 /*
  * Everything that isn't used by Strophe has been stripped here!
  */
@@ -16,6 +18,8 @@
         define('strophe-md5', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.MD5 = factory();

@@ -8,7 +8,7 @@
  */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/* global define */
+/* global define, module, exports */
 
 /* Some functions and variables have been stripped for use with Strophe */
 
@@ -17,6 +17,8 @@
         define('strophe-sha1', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.SHA1 = factory();

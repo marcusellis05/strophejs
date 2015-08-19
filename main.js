@@ -1,4 +1,9 @@
+if (typeof(exports) === 'object') {
+    return module.exports = require("src/wrapper");
+}
+
 var config;
+
 if (typeof(require) === 'undefined') {
     /* XXX: Hack to work around r.js's stupid parsing.
      * We want to save the configuration in a variable so that we can reuse it in

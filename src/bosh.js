@@ -6,7 +6,7 @@
 */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/* global define, window, setTimeout, clearTimeout, XMLHttpRequest, ActiveXObject, Strophe, $build */
+/* global define, module, exports, require, window, setTimeout, clearTimeout, XMLHttpRequest, ActiveXObject, Strophe, $build */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -16,6 +16,9 @@
                 core.$build
             );
         });
+    } else if (typeof exports === "object") {
+        var core = require('./core');
+        module.exports = factory(core.Strophe, core.$build);
     } else {
         // Browser globals
         return factory(Strophe, $build);

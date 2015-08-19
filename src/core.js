@@ -6,7 +6,7 @@
 */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/*global define, document, window, setTimeout, clearTimeout, console, ActiveXObject, DOMParser */
+/* global define, module, exports, require, document, window, setTimeout, clearTimeout, console, ActiveXObject, DOMParser */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -18,6 +18,11 @@
         ], function () {
             return factory.apply(this, arguments);
         });
+    } else if (typeof exports === "object") {
+        var sha1 = require('./sha1'),
+            base64 = require('./base64'),
+            md5 = require('./md5');
+        module.exports = factory(sha1, base64, md5);
     } else {
         // Browser globals
         var o = factory(root.SHA1, root.Base64, root.MD5);
@@ -3391,13 +3396,13 @@ Strophe.SASLMD5.prototype.onChallenge = function(connection, challenge, test_cno
 Strophe.Connection.prototype.mechanisms[Strophe.SASLMD5.prototype.name] = Strophe.SASLMD5;
 
 return {
-    Strophe:        Strophe,
-    $build:         $build,
-    $msg:           $msg,
-    $iq:            $iq,
-    $pres:          $pres,
-    SHA1:           SHA1,
-    Base64:         Base64,
-    MD5:            MD5,
+    Strophe: Strophe,
+    $build:  $build,
+    $msg:    $msg,
+    $iq:     $iq,
+    $pres:   $pres,
+    SHA1:    SHA1,
+    Base64:  Base64,
+    MD5:     MD5,
 };
 }));

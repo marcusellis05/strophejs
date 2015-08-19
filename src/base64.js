@@ -2,11 +2,15 @@
 // public domain.  It would be nice if you left this header intact.
 // Base64 code from Tyler Akins -- http://rumkin.com
 
+/* global define, module, exports */
+
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define('strophe-base64', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.Base64 = factory();

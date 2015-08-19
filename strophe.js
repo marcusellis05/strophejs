@@ -26,11 +26,15 @@
 // public domain.  It would be nice if you left this header intact.
 // Base64 code from Tyler Akins -- http://rumkin.com
 
+/* global define, module, exports */
+
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define('strophe-base64', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.Base64 = factory();
@@ -122,7 +126,7 @@
  */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/* global define */
+/* global define, module, exports */
 
 /* Some functions and variables have been stripped for use with Strophe */
 
@@ -131,6 +135,8 @@
         define('strophe-sha1', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.SHA1 = factory();
@@ -317,6 +323,8 @@ return {
  * See http://pajhome.org.uk/crypt/md5 for more info.
  */
 
+/* global define, module, exports */
+
 /*
  * Everything that isn't used by Strophe has been stripped here!
  */
@@ -326,6 +334,8 @@ return {
         define('strophe-md5', function () {
             return factory();
         });
+    } else if (typeof exports === "object") {
+        module.exports = factory();
     } else {
         // Browser globals
         root.MD5 = factory();
@@ -622,7 +632,7 @@ if (!Array.prototype.indexOf)
 */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/*global define, document, window, setTimeout, clearTimeout, console, ActiveXObject, DOMParser */
+/* global define, module, exports, require, document, window, setTimeout, clearTimeout, console, ActiveXObject, DOMParser */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -634,6 +644,11 @@ if (!Array.prototype.indexOf)
         ], function () {
             return factory.apply(this, arguments);
         });
+    } else if (typeof exports === "object") {
+        var sha1 = require('./sha1'),
+            base64 = require('./base64'),
+            md5 = require('./md5');
+        module.exports = factory(sha1, base64, md5);
     } else {
         // Browser globals
         var o = factory(root.SHA1, root.Base64, root.MD5);
@@ -1074,14 +1089,16 @@ Strophe = {
                     var attr = arg[i];
                     if (typeof(attr) == "object" &&
                         typeof(attr.sort) == "function" &&
-                        attr[1] !== undefined) {
+                        attr[1] !== undefined &&
+                        attr[1] !== null) {
                         node.setAttribute(attr[0], attr[1]);
                     }
                 }
             } else if (typeof(arg) == "object") {
                 for (k in arg) {
                     if (arg.hasOwnProperty(k)) {
-                        if (arg[k] !== undefined) {
+                        if (arg[k] !== undefined &&
+                            arg[k] !== null) {
                             node.setAttribute(k, arg[k]);
                         }
                     }
@@ -4005,14 +4022,14 @@ Strophe.SASLMD5.prototype.onChallenge = function(connection, challenge, test_cno
 Strophe.Connection.prototype.mechanisms[Strophe.SASLMD5.prototype.name] = Strophe.SASLMD5;
 
 return {
-    Strophe:        Strophe,
-    $build:         $build,
-    $msg:           $msg,
-    $iq:            $iq,
-    $pres:          $pres,
-    SHA1:           SHA1,
-    Base64:         Base64,
-    MD5:            MD5,
+    Strophe: Strophe,
+    $build:  $build,
+    $msg:    $msg,
+    $iq:     $iq,
+    $pres:   $pres,
+    SHA1:    SHA1,
+    Base64:  Base64,
+    MD5:     MD5,
 };
 }));
 
@@ -4024,7 +4041,7 @@ return {
 */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/* global define, window, setTimeout, clearTimeout, XMLHttpRequest, ActiveXObject, Strophe, $build */
+/* global define, module, exports, require, window, setTimeout, clearTimeout, XMLHttpRequest, ActiveXObject, Strophe, $build */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -4034,6 +4051,9 @@ return {
                 core.$build
             );
         });
+    } else if (typeof exports === "object") {
+        var core = require('./core');
+        module.exports = factory(core.Strophe, core.$build);
     } else {
         // Browser globals
         return factory(Strophe, $build);
@@ -4347,7 +4367,7 @@ Strophe.Bosh.prototype = {
                    session.rid &&
                    session.sid &&
                    session.jid &&
-                   (typeof jid === "undefined" || Strophe.getBareJidFromJid(session.jid) == Strophe.getBareJidFromJid(jid)))
+                   (typeof jid === "undefined" || jid === "null" || Strophe.getBareJidFromJid(session.jid) == Strophe.getBareJidFromJid(jid)))
         {
             this._conn.restored = true;
             this._attach(session.jid, session.sid, session.rid, callback, wait, hold, wind);
@@ -4953,7 +4973,7 @@ return Strophe;
 */
 
 /* jshint undef: true, unused: true:, noarg: true, latedef: true */
-/* global define, window, clearTimeout, WebSocket, DOMParser, Strophe, $build */
+/* global define, module, exports, require, window, clearTimeout, WebSocket, DOMParser, Strophe, $build */
 
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -4963,6 +4983,9 @@ return Strophe;
                 core.$build
             );
         });
+    } else if (typeof exports === "object") {
+        var core = require('./core');
+        module.exports = factory(core.Strophe, core.$build);
     } else {
         // Browser globals
         return factory(Strophe, $build);

@@ -1,5 +1,5 @@
 {
-  "name": "strophe.js",
+  "name": "strophe",
   "description": "Strophe.js is an XMPP library for JavaScript",
   "version": "1.2.2",
   "homepage": "http://strophe.im/strophejs",
@@ -16,6 +16,8 @@
   ],
   "files": [
     "strophe.js",
+    "main.js",
+    "src/**",
     "CHANGELOG.txt",
     "LICENSE.txt",
     "README.txt"
@@ -40,7 +42,7 @@
     "phantomjs": "^1.9.13",
     "qunit-phantomjs-runner": "^2.1.0"
   },
-  "main": "strophe.js",
+  "main": "main.js",
   "browser": "strophe.js",
   "scripts": {
     "lint": "grunt",
